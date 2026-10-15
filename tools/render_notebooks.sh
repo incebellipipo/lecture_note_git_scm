@@ -18,3 +18,9 @@ find "$site" -name '*.html' -exec sed -i -E \
   -e 's#href="\.\./docs/09-cheat-sheet\.md"#href="../09-cheat-sheet/"#g' \
   -e 's#const elkUrl = "[^"]*";#const elkUrl = "";#' \
   {} +
+
+# 4. the copy button on code cells, as on the pages
+sed -i \
+  -e 's#</head>#<link rel="stylesheet" href="../assets/css/notebook.css">\n</head>#' \
+  -e 's#</body>#<script src="../assets/js/copy-code.js"></script>\n</body>#' \
+  "$site"/notebooks/*.html

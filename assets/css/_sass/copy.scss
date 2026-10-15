@@ -1,0 +1,30 @@
+// The copy button on code blocks (assets/js/copy-code.js). Shared by the pages
+// and the rendered notebooks; the notebooks have no theme variables of their
+// own, so each colour falls back to JupyterLab's.
+.code-wrap {
+  position: relative;
+  .code-copy {
+    position: absolute;
+    top: 0.35em;
+    right: 0.35em;
+    padding: 0.1em 0.5em;
+    border: 1px solid var(--code-rule, var(--jp-border-color1, #ccc));
+    border-radius: 3px;
+    background: var(--code-bg, var(--jp-layout-color1, #fff));
+    color: var(--muted, var(--jp-ui-font-color2, #666));
+    font: inherit;
+    font-size: 0.7em;
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s;
+    &:hover { color: var(--link, var(--jp-brand-color1, #1976d2)); }
+  }
+  &:hover .code-copy,
+  .code-copy:focus-visible,
+  .code-copy.copied { opacity: 1; }
+}
+@media (hover: none) {
+  .code-wrap .code-copy { opacity: 1; }
+}

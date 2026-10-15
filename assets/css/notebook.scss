@@ -1,0 +1,8 @@
+---
+# Added to the rendered notebooks by tools/render_notebooks.sh
+---
+
+@use "copy";
+
+// JupyterLab's code font is smaller than the pages', so the button grows a little
+.jp-InputArea-editor .code-wrap .code-copy { font-size: 0.85em; }
