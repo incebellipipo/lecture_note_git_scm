@@ -1,38 +1,79 @@
-# Documentation Template
+# Git for Marine Technology
 
-A small [Jekyll](https://jekyllrb.com/) template for project documentation. Pages are plain markdown in `docs/` with no front matter, so they read well in a repository browser *and* build into a static website with a LaTeX-article look, maths, Mermaid diagrams and a light/dark switch.
+A short, practical git course for marine technology students, written as
+**runnable Jupyter notebooks** that also build into a website. You execute the
+commands one cell at a time, in a throwaway repository you cannot break. The
+example being versioned is a few dozen lines of naval architecture for a
+box-shaped barge, not a web application.
 
-It includes:
+**The notebooks are the course.** There is no written-up copy of them to keep
+in step: one chapter is one notebook, and editing it is the whole edit. GitHub
+renders notebooks in the browser, so they read fine without running anything.
 
-- one layout and one stylesheet, with light and dark themes driven by CSS variables
-- MathJax (`$...$`, `$$...$$`) and Mermaid diagrams, both themed to match the page
-- a GitHub Pages workflow that builds and deploys on every push to `main`
-- a Docker Compose file for a local preview with live reload
-- example pages that document the template itself, as a starting point to replace
+`docs/` holds just two pages: the contents, and the cheat sheet.
 
-Start from [docs/index.md](docs/index.md), or read it as a website (see below).
+Start from [docs/index.md](docs/index.md), or open
+[notebooks/00-setup.ipynb](notebooks/00-setup.ipynb).
+
+## Contents
+
+| Chapter | Covers |
+| - | - |
+| [0. Setting up](notebooks/00-setup.ipynb) | install, identity, config, the sample code |
+| [1. Commits](notebooks/01-commits.ipynb) | staging area, commits, diffs, `amend`, `restore`, `.gitignore` |
+| [2. Branches](notebooks/02-branches.ipynb) | `switch`, HEAD, the graph view |
+| [3. Merging](notebooks/03-merging.ipynb) | fast-forward, merge commits, conflicts |
+| [4. Rebase](notebooks/04-rebase.ipynb) | replaying commits, `rebase -i`, the golden rule |
+| [5. Remotes and origin](notebooks/05-remotes.ipynb) | bare servers, `push`, `fetch`, `pull`, tracking |
+| [6. Forks](notebooks/06-forks.ipynb) | `upstream`, pull requests, syncing a fork |
+| [7. Cherry-pick](notebooks/07-cherry-pick.ipynb) | backporting one commit to a release |
+| [8. Submodules](notebooks/08-submodules.ipynb) | the pin, fresh clones, updating, pitfalls |
+| [9. Cheat sheet](docs/09-cheat-sheet.md) | every command, and how to get unstuck |
+
+## Running the notebooks
+
+They need git, Python with Jupyter, and a Unix-like shell — Linux, macOS, or WSL
+or Git Bash on Windows:
+
+```bash
+pip install jupyterlab
+jupyter lab notebooks/00-setup.ipynb
+```
+
+A cell starting with `!` runs a shell command, so `!git status` in a notebook is
+exactly the `git status` you would type in a terminal. Each notebook works in
+its own directory under `~/git-course/`, wiped and recreated by its first cell,
+so you can re-run a chapter from the top as often as you like and nothing you do
+touches your real repositories.
+
+Remotes, forks and submodule servers are local bare repositories rather than
+GitHub accounts, so there is nothing to sign up for and you can see that a git
+server is only a repository without a working tree. Every command is the one you
+would type against a real URL.
+
+## Working on the course
+
+```bash
+make test     # run all nine notebooks top to bottom in a throwaway HOME
+make serve    # preview the website locally
+```
+
+`make test` executes every notebook from the first cell, in a temporary `HOME`
+with its own git identity, so it never touches your configuration or your
+repositories. If Jupyter lives in a virtualenv, pass its path:
+`make test JUPYTER=~/ros_ws/venv/bin/jupyter`.
 
 ## Layout
 
 ```text
-docs/        your pages (markdown; also the site's pages)
+notebooks/   the course: one runnable notebook per chapter
+docs/        the site's two pages: the contents, and the cheat sheet
 _layouts/    page layout
 _includes/   MathJax and Mermaid
 assets/      stylesheet (LaTeX-article look) and Computer Modern fonts
 llms.txt     index for language models
-src/         optional, for accompanying code (not published)
-notebooks/   optional, for accompanying notebooks (not published)
+Makefile     test, serve
 ```
-
-## Using it
-
-1. Click *Use this template* on GitHub, or fork or clone the repository.
-2. In `_config.yml`, set `title`, `description`, `author` and `baseurl` (`/<your-repository-name>`); `home_url` is optional.
-3. Update the copyright line in `LICENSE.md`, or replace the license.
-4. Replace the pages in `docs/`, keeping the contents list in `docs/index.md` and `llms.txt` in step.
-5. Rewrite this README for your project.
-
-[docs/00-getting-started.md](docs/00-getting-started.md) walks through the same steps in more detail.
 
 ## Website
 
@@ -40,14 +81,20 @@ notebooks/   optional, for accompanying notebooks (not published)
 
 ```bash
 docker compose up
-# open http://localhost:4000/documentation-template/
+# open http://localhost:4000/lecture_notes_git/
 ```
 
-Edits to `docs/` reload in the browser. Without Docker, run `bundle install` and `bundle exec jekyll serve`.
+This builds the site the same way GitHub Pages does — Jekyll for the pages,
+then `tools/render_notebooks.sh` to turn each notebook into a page — and serves
+the result. It builds once, so run it again after editing.
 
-**Publish** with GitHub Pages: push to `main`, then set *Settings > Pages > Source* to *GitHub Actions*. The workflow in `.github/workflows/pages.yml` builds and deploys the site at `https://<user>.github.io/<repository>/`, or under your custom domain if you have one. Forks work the same way.
+**Publish** with GitHub Pages: push to `main`, then set *Settings > Pages >
+Source* to *GitHub Actions*. The workflow in `.github/workflows/pages.yml`
+builds and deploys the site at `https://<user>.github.io/<repository>/`. If your
+default branch is `master`, change the branch in that workflow to match.
 
-The look is after [Gradfolio](https://github.com/jitinnair1/gradfolio) and [LatexJekyll](https://github.com/Hammie217/LatexJekyll).
+The page design is after [Gradfolio](https://github.com/jitinnair1/gradfolio)
+and [LatexJekyll](https://github.com/Hammie217/LatexJekyll).
 
 ## License
 

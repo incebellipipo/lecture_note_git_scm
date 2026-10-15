@@ -1,18 +1,42 @@
-# Preview the site locally: docker compose up
-# then open http://localhost:4000/documentation-template/
+# Preview the site locally, exactly as GitHub Pages builds it:
+#   docker compose up
+# then open http://localhost:4000/lecture_notes_git/
+#
+# It builds once: Jekyll makes the pages, nbconvert renders the notebooks,
+# and a plain web server shows the result. After editing, run it again.
 services:
-  site:
+  build:
     image: ruby:3.3
     working_dir: /srv/site
     command: >
-      bash -c "bundle install &&
-               bundle exec jekyll serve --host 0.0.0.0 --livereload --force_polling"
-    ports:
-      - "4000:4000"   # the site
-      - "35729:35729" # live reload
+      bash -c "bundle install --quiet &&
+               bundle exec jekyll build --destination _preview/lecture_notes_git"
     volumes:
       - .:/srv/site
       - gems:/usr/local/bundle # keep installed gems between runs
+
+  notebooks:
+    image: python:3.12-slim
+    working_dir: /srv/site
+    command: >
+      sh -c "pip install --quiet --root-user-action=ignore nbconvert &&
+             sh tools/render_notebooks.sh _preview/lecture_notes_git"
+    depends_on:
+      build:
+        condition: service_completed_successfully
+    volumes:
+      - .:/srv/site
+
+  site:
+    image: python:3.12-slim
+    command: python -m http.server 4000 --directory /srv/site/_preview
+    ports:
+      - "4000:4000"
+    depends_on:
+      notebooks:
+        condition: service_completed_successfully
+    volumes:
+      - .:/srv/site
 
 volumes:
   gems:

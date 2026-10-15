@@ -1,20 +1,53 @@
-# Documentation Template
+# Git for Marine Technology
 
-> A Jekyll template for project documentation. Pages are plain markdown files in `docs/` with no front matter, so they read well both in a repository browser and as a built website. The site has a LaTeX-article look with light and dark themes, MathJax maths, Mermaid diagrams, and a GitHub Pages workflow that deploys on every push to `main`.
+> A short, practical git course for marine technology students. Ten chapters of
+> plain markdown in `docs/`, each with a runnable Jupyter notebook twin in
+> `notebooks/` that executes the same git commands with `!` shell cells. The
+> worked example is `hydrostatics.py`, about thirty lines of naval architecture
+> for a box-shaped barge.
 
 Key points:
 
-- One markdown file in `docs/` is one page. `docs/index.md` is the front page; the rest are served at `/<basename>/`.
-- Front matter is optional: Jekyll plugins supply the layout, the permalink and the title (taken from the first `#` heading).
-- The contents list in `docs/index.md` is the table of contents; there is no generated sidebar.
-- Styling is a handful of Sass partials in `assets/css/_sass`; colours come from CSS variables shared by the stylesheet, the code highlighting and the diagrams.
-- Placeholders to replace before publishing: `title`, `description`, `author` and `baseurl` in `_config.yml`, the copyright line in `LICENSE.md`, this file, and the pages in `docs/`.
+- **The notebooks are the course, and the only copy of it.** There is no
+  written-up markdown version of a chapter: one chapter is one
+  `notebooks/NN-name.ipynb`. `docs/` holds only `index.md` (the contents) and
+  `09-cheat-sheet.md`. Do not reintroduce generated chapter pages.
+- Every notebook works in a throwaway directory under `~/git-course/<chapter>/`,
+  wiped and recreated by its first cell, so chapters are independent and can be
+  re-run from the top at will.
+- Remotes, forks and submodule servers are *local bare repositories*, not
+  GitHub: students can see that a server is only a repository without a working
+  tree. The commands are identical with a real URL.
+- **Keep the notebooks simple.** Code cells use only `!git ...`, `%%writefile`
+  (to create or change a file), `%cd`, and `!rm`, `!mkdir`, `!cat`, `!ls`,
+  `!python`. No `printf`, `sed`, `-q` flags, `&&` chains or `git -C`: students
+  should see only commands they would type themselves. They need a Unix-like
+  shell (Linux, macOS, or WSL or Git Bash on Windows).
+- Commits that must fail to teach something are marked with a comment
+  containing "on purpose".
+- The one notebook device: `GIT_SEQUENCE_EDITOR=true git rebase -i
+  --autosquash`, because a notebook cannot open an editor. Elsewhere, avoid
+  commands that open one (use `-m` and `--no-edit`).
+- Submodules from a local path need `git -c protocol.file.allow=always`
+  (CVE-2022-39253); real `https://` and `git@` URLs do not.
+- Diagrams are mermaid `gitGraph` and `flowchart` blocks, which render on the
+  site, on GitHub, and in JupyterLab 4.1 and later.
+- The sample code (`hydrostatics.py`) exists only inside the notebooks, written
+  with `%%writefile`; there is no separate copy in the repository.
 
-## Docs
+## Pages
 
-- [Index](./): what the template is, how a page becomes a site, contents
-- [0. Getting started](00-getting-started/): copy the template, replace the placeholders, preview locally, publish
-- [1. Writing pages](01-writing-pages/): file-to-URL mapping, optional front matter, numbering and order, links between pages, headings
-- [2. Formatting reference](02-formatting/): text, tables, code blocks, `<details>` dropdowns, maths, Mermaid diagrams, images
-- [3. Customising](03-customising/): configuration keys, the Sass partials and theme variables, fonts, layout and includes, extra directories
-- [4. Publishing](04-publishing/): the GitHub Pages workflow, base paths and custom domains, `llms.txt`, a publishing checklist
+- [Index](./): what the course is, the four places a change can be, contents, how to run the notebooks
+- [9. Cheat sheet](09-cheat-sheet/): every command in tables, recovery recipes, three habits
+
+## Chapters (notebooks, in `notebooks/`)
+
+- `00-setup.ipynb`: installing git, identity, useful config, how the notebooks work
+- `01-commits.ipynb`: `init`, the staging area, `commit`, diffs, `log`, `amend`, `restore`, `.gitignore`
+- `02-branches.ipynb`: a branch as 41 bytes, `switch`, what switching does, the graph view
+- `03-merging.ipynb`: fast-forward, merge commit and merge base, conflicts and markers, `--abort`
+- `04-rebase.ipynb`: replay as copying, interactive rebase, per-commit conflicts, the golden rule, rebase vs merge
+- `05-remotes.ipynb`: bare repositories, `remote add`, `push -u`, remote-tracking branches, `fetch` vs `pull`, rejected pushes
+- `06-forks.ipynb`: the upstream/origin triangle, what a pull request is, syncing a fork, fork vs clone vs branch
+- `07-cherry-pick.ipynb`: backporting one commit, `-x`, ranges, `git cherry`, when not to use it
+- `08-submodules.ipynb`: the pin (mode 160000), `.gitmodules`, empty fresh clones, updating the pin, detached HEAD, alternatives

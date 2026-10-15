@@ -1,10 +1,10 @@
-title: Documentation Template
-description: "A Jekyll template for documentation that reads well on GitHub and as a website"
-author: Your Name
+title: Git for Marine Technology
+description: "A short, practical git course for marine technology students, with runnable notebooks"
+author: Emir Cem Gezer
 
 # GitHub Pages serves a project site under the repository name. The deploy
 # workflow passes the right value, so this only matters for local previews.
-baseurl: /documentation-template
+baseurl: /lecture_notes_git
 
 # Optional: a "Home" link in the menu, e.g. to your own website
 home_url:
@@ -53,7 +53,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - docker-compose.yml
+  - Makefile
   - vendor/
-  - src/
-  - notebooks/
+  - _preview/
+  - tools/
   - .github/
