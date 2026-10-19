@@ -1,0 +1,36 @@
+<!-- Sidebar: every page in docs/ in filename order, numbered from the filename
+     as in the headings (09-cheat-sheet.md is "9."), then the notebooks.
+     The number is left out when the heading already starts with it.
+     assets/js/toc.js adds the current page's sections and the drawer on small screens. -->
+{% assign doc_pages = site.pages | where_exp: "p", "p.path contains 'docs/'" | sort: "path" %}
+{% assign notebooks = site.static_files | where_exp: "f", "f.path contains '/notebooks/'" | where: "extname", ".ipynb" | sort: "path" %}
+<nav class="toc" id="toc" aria-label="Contents">
+    <p class="toc-title">Contents</p>
+    <ol>
+        {% for p in doc_pages %}{% if p.url == "/" %}
+        <li{% if page.url == p.url %} class="current"{% endif %}><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+        {% endif %}{% endfor %}
+        {% for p in doc_pages %}{% unless p.url == "/" %}
+        {% assign lead = p.name | split: "-" | first %}
+        {% assign digits = lead | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" %}
+        {% assign number = "" %}
+        {% if digits == "" and p.name contains "-" %}{% assign number = lead | plus: 0 | append: ". " %}{% endif %}
+        {% assign title_start = p.title | slice: 0, number.size %}
+        {% if title_start == number %}{% assign number = "" %}{% endif %}
+        <li{% if page.url == p.url %} class="current"{% endif %}><a href="{{ p.url | relative_url }}">{{ number }}{{ p.title }}</a></li>
+        {% endunless %}{% endfor %}
+    </ol>
+    {% if notebooks.size > 0 %}
+    <p class="toc-title">Notebooks</p>
+    <ol>
+        {% for f in notebooks %}
+        {% assign words = f.basename | split: "-" %}
+        {% assign digits = words.first | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" %}
+        {% if digits == "" and words.size > 1 %}{% assign words = words | shift %}{% endif %}
+        <li><a href="{{ '/notebooks/' | append: f.basename | append: '.html' | relative_url }}">{{ words | join: " " | replace: "_", " " | capitalize }}</a></li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+</nav>
+<button type="button" class="toc-toggle" aria-controls="toc" aria-expanded="false">\tableofcontents</button>
+<div class="toc-backdrop" hidden></div>

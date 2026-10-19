@@ -69,8 +69,8 @@ repositories. If Jupyter lives in a virtualenv, pass its path:
 notebooks/   the course: one runnable notebook per chapter
 docs/        the site's two pages: the contents, and the cheat sheet
 _layouts/    page layout
-_includes/   MathJax and Mermaid
-assets/      stylesheet (LaTeX-article look) and Computer Modern fonts
+_includes/   the contents sidebar (toc.html), MathJax and Mermaid
+assets/      stylesheet (LaTeX-article look), scripts and Computer Modern fonts
 llms.txt     index for language models
 Makefile     test, serve
 ```
@@ -92,6 +92,11 @@ the result. It builds once, so run it again after editing.
 Source* to *GitHub Actions*. The workflow in `.github/workflows/pages.yml`
 builds and deploys the site at `https://<user>.github.io/<repository>/`. If your
 default branch is `master`, change the branch in that workflow to match.
+
+Every page has a contents sidebar listing the pages in filename order, then the
+notebooks, with the current page's sections; it folds into a drawer on small
+screens. The title links to the front page, and `\url[mainpage]{…}` in the top
+right links to the root of the domain the site is served from.
 
 The page design is after [Gradfolio](https://github.com/jitinnair1/gradfolio)
 and [LatexJekyll](https://github.com/Hammie217/LatexJekyll).
