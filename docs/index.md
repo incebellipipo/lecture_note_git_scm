@@ -68,8 +68,8 @@ Froude number — and each addition is a few lines you can read as a diff.
 ## Running the notebooks
 
 The notebooks are in `notebooks/`, one per chapter. They need
-Python with Jupyter, git, and a Unix-like shell — Linux, macOS, or WSL or Git
-Bash on Windows:
+git and Python 3.12 or newer with Jupyter, and run the same on Windows, macOS
+and Linux:
 
 ```bash
 pip install jupyterlab

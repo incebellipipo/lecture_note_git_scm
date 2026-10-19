@@ -19,13 +19,19 @@ Key points:
   GitHub: students can see that a server is only a repository without a working
   tree. The commands are identical with a real URL.
 - **Keep the notebooks simple.** Code cells use only `!git ...`, `%%writefile`
-  (to create or change a file), `%cd`, and `!rm`, `!mkdir`, `!cat`, `!ls`,
-  `!python`. No `printf`, `sed`, `-q` flags, `&&` chains or `git -C`: students
-  should see only commands they would type themselves. They need a Unix-like
-  shell (Linux, macOS, or WSL or Git Bash on Windows).
+  (to create or change a file), `%cd`, and plain Python for everything else:
+  `os.listdir()` instead of `ls`, `print(Path(...).read_text())` instead of
+  `cat`, `os.mkdir()`, and `!"{sys.executable}" script.py` to run a script. No
+  `printf`, `sed`, `-q` flags, `&&` chains or `git -C`: students should see
+  only commands they would type themselves.
+- **The notebooks run on Windows, macOS and Linux.** On Windows, `!` runs
+  through cmd.exe, so the only shell commands allowed are `git` ones. The
+  first cell of each notebook wipes its folder with `shutil.rmtree` and a
+  handler that clears git's read-only flag, which Windows needs. This needs
+  Python 3.12 or newer (`onexc`).
 - Commits that must fail to teach something are marked with a comment
   containing "on purpose".
-- The one notebook device: `GIT_SEQUENCE_EDITOR=true git rebase -i
+- The one notebook device: `git -c sequence.editor=true rebase -i
   --autosquash`, because a notebook cannot open an editor. Elsewhere, avoid
   commands that open one (use `-m` and `--no-edit`).
 - Submodules from a local path need `git -c protocol.file.allow=always`

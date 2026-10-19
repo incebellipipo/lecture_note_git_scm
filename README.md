@@ -29,7 +29,7 @@ Start from [docs/index.md](docs/index.md), or open [notebooks/00-setup.ipynb](no
 
 ## Running the notebooks
 
-They need git, Python with Jupyter, and a Unix-like shell — Linux, macOS, or WSL or Git Bash on Windows:
+They need git and Python 3.12 or newer with Jupyter, and run the same on Windows, macOS and Linux:
 
 ```bash
 pip install jupyterlab
