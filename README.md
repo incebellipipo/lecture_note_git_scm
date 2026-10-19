@@ -1,4 +1,4 @@
-# Git for Marine Technology
+# Tutorial: git version control system
 
 A short, practical git course for students, written as **runnable Jupyter notebooks** that also build into a website.
 You execute the commands one cell at a time, in a throwaway repository you cannot break.
