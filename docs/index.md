@@ -1,10 +1,9 @@
-# Git for Marine Technology
+# Tutorial: git version control system
 
 A short, practical course in [git](https://git-scm.com/), the version control
-system every engineering project now runs on. It is written for marine
-technology students: no software engineering background is assumed, and the
-example you version is a hundred lines of naval architecture rather than a
-web application.
+system every engineering project now runs on. No software engineering
+background is assumed, and the example you version is a hundred lines of
+naval architecture rather than a web application.
 
 Each chapter **is** a runnable notebook, and that notebook is the only copy:
 there is no separate written-up version to fall out of date. You work through a

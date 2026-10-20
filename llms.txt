@@ -1,6 +1,6 @@
-# Git for Marine Technology
+# Tutorial: git version control system
 
-> A short, practical git course for marine technology students. Ten chapters of
+> A short, practical git course for anyone. Ten chapters of
 > plain markdown in `docs/`, each with a runnable Jupyter notebook twin in
 > `notebooks/` that executes the same git commands with `!` shell cells. The
 > worked example is `hydrostatics.py`, about thirty lines of naval architecture
@@ -16,13 +16,13 @@ Key points:
   wiped and recreated by its first cell, so chapters are independent and can be
   re-run from the top at will.
 - Remotes, forks and submodule servers are *local bare repositories*, not
-  GitHub: students can see that a server is only a repository without a working
+  GitHub: readers can see that a server is only a repository without a working
   tree. The commands are identical with a real URL.
 - **Keep the notebooks simple.** Code cells use only `!git ...`, `%%writefile`
   (to create or change a file), `%cd`, and plain Python for everything else:
   `os.listdir()` instead of `ls`, `print(Path(...).read_text())` instead of
   `cat`, `os.mkdir()`, and `!"{sys.executable}" script.py` to run a script. No
-  `printf`, `sed`, `-q` flags, `&&` chains or `git -C`: students should see
+  `printf`, `sed`, `-q` flags, `&&` chains or `git -C`: readers should see
   only commands they would type themselves.
 - **The notebooks run on Windows, macOS and Linux.** On Windows, `!` runs
   through cmd.exe, so the only shell commands allowed are `git` ones. The
